@@ -1,4 +1,4 @@
-# frontend
+# Front-end
 React native mobile app front end
 
 # Setup
