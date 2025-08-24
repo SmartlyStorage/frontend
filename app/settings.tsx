@@ -7,7 +7,7 @@ import { useState } from 'react';
 const SettingItem = ({title, onPress, showChevron = true}: {
   title: string, 
   onPress?: () => void, 
-  showChevron?: boolean
+  showChevron ?: boolean
 }) => (
   <TouchableOpacity style={styles.settingItem} onPress={onPress}>
     <Text style={styles.settingText}>{title}</Text>
