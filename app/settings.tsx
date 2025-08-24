@@ -4,17 +4,6 @@ import { router } from 'expo-router';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import { useState } from 'react';
 
-const SettingItem = ({title, onPress, showChevron = true}: {
-  title: string, 
-  onPress?: () => void, 
-  showChevron ?: boolean
-}) => (
-  <TouchableOpacity style={styles.settingItem} onPress={onPress}>
-    <Text style={styles.settingText}>{title}</Text>
-    {showChevron && <IconSymbol name="chevron.right" size={16} color="#8E8E93" />}
-  </TouchableOpacity>
-);
-
 const SettingWithSwitch = ({ title, value, onValueChange }: {title: string, value: boolean, onValueChange: (value: boolean) => void}) => (
   <View style={styles.settingItem}>
     <Text style={styles.settingText}>{title}</Text>
@@ -37,10 +26,11 @@ export default function SettingsScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={handleBack} style={styles.backButton}>
+        <TouchableOpacity onPress={handleBack}>
           <IconSymbol name="arrow.left" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Settings</Text>
+        <View style={{ width: 24 }} />
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
@@ -118,16 +108,9 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
-    justifyContent: 'center',
-    position: 'relative',
-  },
-  backButton: {
-    position: 'absolute',
-    left: 0,
-    padding: 8,
-    zIndex: 1,
   },
   headerTitle: {
     fontSize: 18,
