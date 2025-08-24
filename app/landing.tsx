@@ -1,11 +1,20 @@
-
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { router } from 'expo-router';
-import { IconSymbol } from '@/components/ui/IconSymbol';
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { router } from "expo-router";
+import { IconSymbol } from "@/components/ui/IconSymbol";
+import {
+  configureGoogleSignin,
+  signInWithGoogle,
+} from "@/services/auth";
+import { useDispatch } from "react-redux";
 
 export default function LandingScreen() {
-  const handleConnectGoogleDrive = () => {
-    router.push('/(tabs)');
+  const dispatch = useDispatch();
+
+  const handleConnectGoogleDrive = async () => {
+    configureGoogleSignin();
+    await signInWithGoogle(dispatch);
+
+    router.push('/(tabs)')
   };
 
   return (
@@ -30,10 +39,15 @@ export default function LandingScreen() {
       </View>
 
       <View style={styles.textContainer}>
-        <Text style={styles.title}>Connect your Google Drive and optimize your storage.</Text>
+        <Text style={styles.title}>
+          Connect your Google Drive and optimize your storage.
+        </Text>
       </View>
 
-      <TouchableOpacity style={styles.connectButton} onPress={handleConnectGoogleDrive}>
+      <TouchableOpacity
+        style={styles.connectButton}
+        onPress={handleConnectGoogleDrive}
+      >
         <Text style={styles.connectButtonText}>Connect Google Drive</Text>
       </TouchableOpacity>
     </View>
@@ -43,50 +57,50 @@ export default function LandingScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: "#F5F5F5",
     paddingHorizontal: 20,
     paddingTop: 50,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 40,
   },
   headerTitle: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#000',
+    fontWeight: "600",
+    color: "#000",
   },
   illustrationContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 60,
   },
   artFrame: {
     width: 280,
     height: 350,
-    backgroundColor: '#F4D4C7',
+    backgroundColor: "#F4D4C7",
     borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
   },
   orangeCircle1: {
-    position: 'absolute',
+    position: "absolute",
     width: 120,
     height: 120,
-    backgroundColor: '#FF8A50',
+    backgroundColor: "#FF8A50",
     borderRadius: 60,
     top: 20,
     right: 20,
   },
   orangeCircle2: {
-    position: 'absolute',
+    position: "absolute",
     width: 80,
     height: 80,
-    backgroundColor: '#FF8A50',
+    backgroundColor: "#FF8A50",
     borderRadius: 40,
     bottom: 40,
     left: 20,
@@ -94,25 +108,25 @@ const styles = StyleSheet.create({
   frameBox: {
     width: 140,
     height: 180,
-    backgroundColor: '#FFF',
+    backgroundColor: "#FFF",
     borderRadius: 8,
     padding: 10,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
   },
   orangeRect: {
-    width: '100%',
-    height: '70%',
-    backgroundColor: '#FF8A50',
+    width: "100%",
+    height: "70%",
+    backgroundColor: "#FF8A50",
     borderRadius: 4,
   },
   plantContainer: {
-    position: 'absolute',
-    top: '30%',
-    left: '50%',
+    position: "absolute",
+    top: "30%",
+    left: "50%",
     transform: [{ translateX: -30 }, { translateY: -30 }],
   },
   textContainer: {
@@ -121,21 +135,21 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#000',
-    textAlign: 'center',
+    fontWeight: "bold",
+    color: "#000",
+    textAlign: "center",
     lineHeight: 32,
   },
   connectButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: "#007AFF",
     paddingVertical: 16,
     borderRadius: 12,
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 40,
   },
   connectButtonText: {
-    color: '#FFF',
+    color: "#FFF",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });
