@@ -8,10 +8,6 @@ export default function ProfileScreen() {
     router.back();
   };
 
-  const handleSettings = () => {
-    router.push('/settings');
-  };
-
   const handleDisconnectDrive = () => {
     // Mock action to disconnect Google Drive
     console.log('Disconnecting Google Drive...');
