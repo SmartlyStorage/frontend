@@ -7,9 +7,8 @@ import { useState } from 'react';
 const SettingItem = ({title, onPress, showChevron = true}: {
   title: string, 
   onPress?: () => void, 
-  showChevron: boolean
-}
-) => (
+  showChevron?: boolean
+}) => (
   <TouchableOpacity style={styles.settingItem} onPress={onPress}>
     <Text style={styles.settingText}>{title}</Text>
     {showChevron && <IconSymbol name="chevron.right" size={16} color="#8E8E93" />}
@@ -38,7 +37,7 @@ export default function SettingsScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={handleBack}>
+        <TouchableOpacity onPress={handleBack} style={styles.backButton}>
           <IconSymbol name="arrow.left" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Settings</Text>
@@ -123,6 +122,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
+  },
+  backButton: {
+    padding: 8,
+    marginLeft: -8,
   },
   headerTitle: {
     fontSize: 18,
