@@ -4,36 +4,36 @@ import { router } from 'expo-router';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import { useState } from 'react';
 
+const SettingItem = ({title, onPress, showChevron = true}: {
+  title: string, 
+  onPress?: () => void, 
+  showChevron: boolean
+}
+) => (
+  <TouchableOpacity style={styles.settingItem} onPress={onPress}>
+    <Text style={styles.settingText}>{title}</Text>
+    {showChevron && <IconSymbol name="chevron.right" size={16} color="#8E8E93" />}
+  </TouchableOpacity>
+);
+
+const SettingWithSwitch = ({ title, value, onValueChange }: {title: string, value: boolean, onValueChange: (value: boolean) => void}) => (
+  <View style={styles.settingItem}>
+    <Text style={styles.settingText}>{title}</Text>
+    <Switch
+      value={value}
+      onValueChange={onValueChange}
+      trackColor={{ false: '#E5E5EA', true: '#007AFF' }}
+      thumbColor="#FFF"
+    />
+  </View>
+);
+
 export default function SettingsScreen() {
   const [deleteAfterArchiving, setDeleteAfterArchiving] = useState(false);
 
   const handleBack = () => {
     router.back();
   };
-
-  const renderSettingItem = (
-    title: string, 
-    icon?: string, 
-    onPress?: () => void, 
-    showChevron = true
-  ) => (
-    <TouchableOpacity style={styles.settingItem} onPress={onPress}>
-      <Text style={styles.settingText}>{title}</Text>
-      {showChevron && <IconSymbol name="chevron.right" size={16} color="#8E8E93" />}
-    </TouchableOpacity>
-  );
-
-  const renderSettingWithSwitch = (title: string, value: boolean, onValueChange: (value: boolean) => void) => (
-    <View style={styles.settingItem}>
-      <Text style={styles.settingText}>{title}</Text>
-      <Switch
-        value={value}
-        onValueChange={onValueChange}
-        trackColor={{ false: '#E5E5EA', true: '#007AFF' }}
-        thumbColor="#FFF"
-      />
-    </View>
-  );
 
   return (
     <View style={styles.container}>
@@ -74,8 +74,6 @@ export default function SettingsScreen() {
               <Text style={styles.sliderValue}>100 MB</Text>
             </View>
             <View style={styles.slider} />
-            {renderSettingItem('Unused file age')}
-            {renderSettingItem('Excluded folders')}
           </View>
         </View>
 
@@ -83,12 +81,11 @@ export default function SettingsScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Archiving Options</Text>
           <View style={styles.settingsCard}>
-            {renderSettingItem('Default archive location')}
-            {renderSettingWithSwitch(
-              'Delete originals after archiving',
-              deleteAfterArchiving,
-              setDeleteAfterArchiving
-            )}
+            <SettingWithSwitch
+              title="Delete originals after archiving"
+              value={deleteAfterArchiving}
+              onValueChange={setDeleteAfterArchiving}
+            />
           </View>
         </View>
 
@@ -96,9 +93,6 @@ export default function SettingsScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>App & Privacy</Text>
           <View style={styles.settingsCard}>
-            {renderSettingItem('Storage permissions')}
-            {renderSettingItem('Clear scan history / logs')}
-            {renderSettingItem('Privacy policy')}
           </View>
         </View>
 
@@ -106,7 +100,6 @@ export default function SettingsScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>General</Text>
           <View style={styles.settingsCard}>
-            {renderSettingItem('About')}
             <View style={styles.settingItem}>
               <Text style={styles.settingText}>App version</Text>
               <Text style={styles.versionText}>1.2.3</Text>
